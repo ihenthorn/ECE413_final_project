@@ -1,0 +1,59 @@
+UVFit API description
+
+///////////////////////////////////////////
+Resource / Request verb / Description
+//////////////////////////////////////
+
+/////////////////////////////////////////
+Device Endpoints
+//////////////////////////////////////
+/devices/register, POST, Register a new device.
+							Parameters (JSON):
+							{
+							   "deviceId": "11f4baaef3445ff", 
+							   "email": "test@example.com"
+							}
+
+							Response (JSON):
+							Success (201):
+							{
+							   "registered": true, 
+							   "message": "Device ID: 11f4baaef3445ff was registered."
+							}
+
+/devices/status/devid, GET, Get device status for device with specified ID
+
+							Parameters (URL encoded): 
+							all or specific device ID
+
+							Response (JSON):
+							Success (200):
+							If devid is all, return all database documents for all devices, otherwise return all database documents for the specified devid.
+
+							Failure (400):
+							If error retrieving data from database, return JSON with error message.
+							{
+							   "message": "Some sort of error message here."
+							}
+
+/devices/all, GET, Get a list of all devices.
+
+/////////////////////////////////////////
+User data Endpoint
+//////////////////////////////////////
+/users/register, POST, Register a new user
+
+/users/account, GET, Get user's account information.
+
+/users/signin, POST, Authenticate user and return authentication token
+
+/////////////////////////////////////////
+GPS/UV(Activity) data Endpoint
+//////////////////////////////////////
+/activities/all, GET, Get a list of all activities in db
+
+/activities/user/userid, GET, Get a list of activities reported by the user
+
+/activities/recent/1, GET, Get a list of activities uploaded in the last specified number of days
+
+
