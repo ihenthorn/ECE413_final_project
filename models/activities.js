@@ -2,10 +2,7 @@ var db = require("../db");
 
 // Define the schema
 var activities = new db.Schema({
-    deviceId:   String,
-    userEmail:  String,
-    longitude:  Number,
-    latitude:   Number,
+    loc:           { type: [Number], index: '2dsphere'},
     uvExposure: Number,
     speed: Number,
     submitTime: { type: Date, default: Date.now }

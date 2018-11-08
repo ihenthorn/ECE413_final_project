@@ -7,7 +7,6 @@ var userSchema = new db.Schema({
   lastAccess:   { type: Date, default: Date.now },
   userDevices:  [ String ],
   activities: [ { date: Date, caloriesBurned: Number, uvExposure: Number, speed: Number  }]
-  //potholesHit:  [ { potholeId: Number, numHits: Number } ]
 });
 
 var User = db.model("User", userSchema);

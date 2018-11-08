@@ -11,8 +11,8 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-    <link href="/uvfit/stylesheets/uvfit.css" rel="stylesheet">
-    <script src="/uvfit/javascripts/register.js" defer></script>
+    <link href="stylesheets/uvfit.css" rel="stylesheet">
+    <script src="javascripts/register.js" defer></script>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -22,7 +22,7 @@
   <body>
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
-      <li><a href="index.html">Sign in</a></li>
+      <li><a href="signin.html">Sign in</a></li>
     </ul>
     <nav>
       <div class="nav-wrapper red darken-2">
@@ -37,13 +37,13 @@
     <div class="row">
       <div class="col s12 m6">
         <div class="card red-grey ">
-          <div class="card-content white-text">
+          <div class="card-content black-text">
             <span class="card-title">Account Registration</span>
             <div class="input-field">
               <label for="email">Email</label>
               <input type="email" id="email" name="email" >
             </div>
-            <div class="input-field">
+            <div class="input-field black-text">
               <label for="fullName">Full Name</label>
               <input type="text" id="fullName" name="fullName" >
             </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="card-action">
               <div><a id="signup" class="waves-effect waves-light red darken-2 white-text btn">Register</a></div>
-              <div id="account">Have an account? <a href="index.html">Sign In</a></div>
+              <div id="account">Have an account? <a href="signin.html">Sign In</a></div>
             </div>
           </div>
           <div class="card-panel green-text" id="ServerResponse" style="display: none"></div>

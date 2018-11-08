@@ -50,6 +50,9 @@ User data Endpoint
 /////////////////////////////////////////
 GPS/UV(Activity) data Endpoint
 //////////////////////////////////////
+
+/activities/add, POST, Post an activity
+
 /activities/all, GET, Get a list of all activities in db
 
 /activities/user/userid, GET, Get a list of activities reported by the user

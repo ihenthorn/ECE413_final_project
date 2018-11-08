@@ -1,0 +1,18 @@
+* {
+    background-color: grey;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+a {
+  
+    color: red;
+    font-family: monospace;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+

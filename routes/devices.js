@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
+
 var fs = require('fs');
 var Device = require("../models/device");
 var jwt = require("jwt-simple");
 
 /* Authenticate user */
-var secret = fs.readFileSync(__dirname + '/../../jwtkey').toString();
+var secret = fs.readFileSync(__dirname + '/../jwtkey').toString();
 
 // Function to generate a random apikey consisting of 32 characters
 function getNewApikey() {
@@ -55,11 +56,15 @@ router.post('/register', function(req, res, next) {
     };
     var deviceExists = false;
     
+    // debug here
+    //console.log(req.body.deviceId);
+
+    // TODO: req.body.hasOwnProperty() is not working here, need to fix
     // Ensure the request includes the deviceId parameter
-    if( !req.body.hasOwnProperty("deviceId")) {
+    /*if( !req.body.hasOwnProperty("deviceId")) {
         responseJson.message = "Missing deviceId.";
         return res.status(400).json(responseJson);
-    }
+    }*/
 
     var email = "";
     

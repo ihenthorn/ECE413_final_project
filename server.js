@@ -1,16 +1,15 @@
-// TEMPLATE ONLY, Currently using server.js isntead.
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// server.js
+var express = require('express')
 var bodyParser = require('body-parser');
+var path = require('path');
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 var devicesRouter = require('./routes/devices');
 var activitiesRouter = require('./routes/activities');
-var usersRouter = require('./routes/users');
 
 var app = express();
+var port = 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,18 +30,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(logger('dev'));
-
 // The following allows use to send a JSON response using .json() instead of
 // .send(JSON.stringify())
-//
-// Note: Recent express versions automatically install this.
 app.use(express.json());
 
 // The following will URL query strings. Key/value
 // pairs will be accessible using req.query.key
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 // The following will parse JSON data passed in the body. Key/value
 // pairs will be accessible using req.body.key
@@ -51,26 +45,19 @@ app.use(bodyParser.json());
 // The following will parse URL encoded parameters. Key/value
 // pairs will be accessible using req.params.key
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// serve static pages in public/ folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/devices', devicesRouter);
 app.use('/activities', activitiesRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.listen(port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err);
+  }
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+  console.log(`server is listening on ${port}`);
+})

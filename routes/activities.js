@@ -1,17 +1,14 @@
 var express = require('express');
 var router = express.Router();
-//var Device = require("../models/device");
 
-var express = require('express');
-var router = express.Router();
 var fs = require('fs');
 var jwt = require("jwt-simple");
 var Device = require("../models/device");
-var Pothole = require("../models/activities");
+var Activity = require("../models/activities");
 var User = require("../models/users");
 
 // Secret key for JWT
-var secret = fs.readFileSync(__dirname + '/../../jwtkey').toString();
+var secret = fs.readFileSync(__dirname + '/../jwtkey').toString();
 var authenticateRecentEndpoint = true;
 
 function authenticateAuthToken(req) {
@@ -31,16 +28,19 @@ function authenticateAuthToken(req) {
     }
 }
 
-// POST: Adds reported pothole to the database and returns total hit count for the pothole
+// POST: Adds an activity to the database
 // Authentication: APIKEY. The device reporting must have a valid APIKEY
-router.post("/hit", function(req, res) {
+router.post("/add", function(req, res) {
     var responseJson = {
         success : false,
         message : "",
-        totalHits: 1
     };
 
-    // Ensure the POST data include required properties                                               
+    // Ensure the POST data include required properties    
+    
+    // TODO: Make sure device is sending the right body parameters,
+    // deviceId, apikey, longitude, latitude, time, uv, speed
+    //
     if( !req.body.hasOwnProperty("deviceId") ) {
         responseJson.message = "Request missing deviceId parameter.";
         return res.status(201).send(JSON.stringify(responseJson));
@@ -66,6 +66,16 @@ router.post("/hit", function(req, res) {
         return res.status(201).send(JSON.stringify(responseJson));
     }
     
+    if( !req.body.hasOwnProperty("uv") ) {
+        responseJson.message = "Request missing uv parameter.";
+        return res.status(201).send(JSON.stringify(responseJson));
+    }
+    
+    if( !req.body.hasOwnProperty("speed") ) {
+        responseJson.message = "Request missing speed parameter.";
+        return res.status(201).send(JSON.stringify(responseJson));
+    }
+
     // Find the device and verify the apikey                                           
     Device.findOne({ deviceId: req.body.deviceId }, function(err, device) {
         if (device === null) {
@@ -78,45 +88,45 @@ router.post("/hit", function(req, res) {
             return res.status(201).send(JSON.stringify(responseJson));
         }
                
-        // Check to see if a pothole was already recoreded within 10 meters (or thereabouts, this needs to be verified)
-        var findPotholeQuery = Pothole.findOne({
+        // Check to see if an activity was already recoreded within 10 meters (or thereabouts, this needs to be verified)
+        /*var findActivityQuery = Activity.findOne({
              loc: {
                  $near : {
                      $geometry: { type: "Point",  coordinates: [req.body.longitude, req.body.latitude] },
                      $maxDistance: 10.0
                  }
              }
-         });
+         });*/
 
          // Execute the query     
-         findPotholeQuery.exec(function (err, pothole) {
+         findActivityQuery.exec(function (err, activity) {
             if (err) {
                console.log(err);
                responseJson.message = "Error accessing db.";
                return res.status(201).send(JSON.stringify(responseJson));
              }
              
-             // Pothole was found, update the hit count and last reported time
-             if (pothole) {
-                 pothole.totalHits++;
+             // Activity was found, update last reported time
+             if (activity) {
                  pothole.lastReported = Date.now();
-                 responseJson.message = "Pothole hit recorded.";
-                 responseJson.totalHits = pothole.totalHits;
+                 responseJson.message = "Activity date updated.";
              }
-             // New pothole found
+             //////////////////////////////////////////////////////////////////////
+             // New activity
+             /////////////////////////////
              else {
-                 // Create a new pothole and save the pothole to the database
-                 var pothole = new Pothole({
+                 // Create a new activity and save the activity to the database
+                 var activity = new Activity({
                      loc: [req.body.longitude, req.body.latitude],
-                     totalHits: 1,
-                     lastReported: Date.now(),
-                     firstReported: Date.now(),
+                     uvExposure: req.body.uvexposure,
+                     speed: req.body.speed,
+                     submitTime: Date.now(),
                  });
-                 responseJson.message = "New pothole recorded.";
+                 responseJson.message = "New activity recorded.";
              }                
 
-             // Save the pothole data. 
-             pothole.save(function(err, newPothole) {
+             // Save the activity data. 
+             activity.save(function(err, newActivity) {
                  if (err) {
                      responseJson.status = "ERROR";
                      responseJson.message = "Error saving data in db." + err;
@@ -130,7 +140,7 @@ router.post("/hit", function(req, res) {
     });
 });
 
-// GET: Returns all potholes first reported in the previous specified number of days
+// GET: Returns all activities first submitted in the previous specified number of days
 // Authentication: Token. A user must be signed in to access this endpoint
 router.get("/recent/:days", function(req, res) {
     var days = req.params.days;
@@ -138,7 +148,7 @@ router.get("/recent/:days", function(req, res) {
     var responseJson = {
         success: true,
         message: "",
-        potholes: [],
+        activities: [],
     };
     
     if (authenticateRecentEndpoint) {
@@ -150,7 +160,6 @@ router.get("/recent/:days", function(req, res) {
         }
     }
     
-    
     // Check to ensure the days is between 1 and 30 (inclsuive), return error if not
     if (days < 1 || days > 30) {
         responseJson.success = false;
@@ -158,36 +167,33 @@ router.get("/recent/:days", function(req, res) {
         return res.status(200).json(responseJson);
     }
     
-    // Find all potholes reported in the spcified number of days
-    var recentPotholesQuery = Pothole.find({
-        "firstReported": 
+    // Find all activities reported in the specified number of days
+    var recentActivitiesQuery = Activity.find({
+        "submitTime": 
         {
             $gte: new Date((new Date().getTime() - (days * 24 * 60 * 60 * 1000)))
         }
     }).sort({ "date": -1 });
     
     
-    recentPotholesQuery.exec({}, function(err, recentPotholes) {
+    recentActivitiesQuery.exec({}, function(err, recentActivities) {
         if (err) {
             responseJson.success = false;
             responseJson.message = "Error accessing db.";
             return res.status(200).send(JSON.stringify(responseJson));
         }
         else {  
-            var numRecentPotholes = 0;
-            var numTotalHits = 0;      
-            for (var pothole of recentPotholes) {
-                // Add pothole data to the respone's potholes array
-                numRecentPotholes++;
-                numTotalHits += pothole.totalHits; 
-                responseJson.potholes.push({
-                    latitude: pothole.loc[1],
-                    longitude: pothole.loc[0],
-                    date: pothole.firstReported,
-                    totalHits: pothole.totalHits
+            var numRecentActivities = 0;
+            for (var activity of recentActivities) {
+                // Add activity data to the respone's asctivities array
+                numRecentActivities++;
+                responseJson.activities.push({
+                    latitude: activity.loc[1],
+                    longitude: activity.loc[0],
+                    date: activity.submitTime,
                 });
             }
-            responseJson.message = "In the past " + days + " days, " + numRecentPotholes + " potholes have been hit " + numTotalHits + " times.";
+            responseJson.message = "In the past " + days + " days, " + numRecentActivities + " UVFit activities have been submitted.";
             return res.status(200).send(JSON.stringify(responseJson));
         }
     })

@@ -10,7 +10,7 @@ function getRecentActivities() {
     xhr.send();
 }
 
-function displayMostRecentPothole() {
+function displayMostRecentActivity() {
    document.getElementById("main").style.display = "block";
 
    if (this.status === 200) {
@@ -54,7 +54,7 @@ function displayMostRecentPothole() {
     }
     else if (this.status === 401) {
         window.localStorage.removeItem("authToken");
-        window.location = "index.html";
+        window.location = "signin.html";
     }
     else {
     	// ?
