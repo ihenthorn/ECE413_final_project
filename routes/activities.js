@@ -28,6 +28,7 @@ function authenticateAuthToken(req) {
     }
 }
 
+// TODO: Device must POST data to this endpoint.
 // POST: Adds an activity to the database
 // Authentication: APIKEY. The device reporting must have a valid APIKEY
 router.post("/add", function(req, res) {
@@ -118,7 +119,7 @@ router.post("/add", function(req, res) {
                  // Create a new activity and save the activity to the database
                  var activity = new Activity({
                      loc: [req.body.longitude, req.body.latitude],
-                     uvExposure: req.body.uvexposure,
+                     uvExposure: req.body.uv,
                      speed: req.body.speed,
                      submitTime: Date.now(),
                  });
@@ -190,6 +191,8 @@ router.get("/recent/:days", function(req, res) {
                 responseJson.activities.push({
                     latitude: activity.loc[1],
                     longitude: activity.loc[0],
+                    uv: activity.uvExposure,
+                    speed: activity.speed,
                     date: activity.submitTime,
                 });
             }
