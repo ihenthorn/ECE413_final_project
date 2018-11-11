@@ -16,8 +16,9 @@ function getRecentActivities() {
 function displayMostRecentActivity() {
     console.log("Inside displayMostRecentActivity function, ajax response loads.");
     console.log(this.response);
-   document.getElementById("main").style.display = "block";
-
+    console.log(this.status);
+    document.getElementById("main").style.display = "block";
+   
    if (this.status === 200) {
 	   var latitude = 0.0;
 	   var longitude = 0.0;
@@ -37,19 +38,25 @@ function displayMostRecentActivity() {
 		                  " activites have been uploaded in the last ten days. The most recent activity (shown above) was " +
 		                  this.response.activities[this.response.activities.length-1].date;
 
-           // Get each activity from the response and post its data to div of id activityReport in recentactivities.html
+           // Get each activity from the response and post its data to div of id #activityText in recentactivities.html
            for (let index = 0; index < this.response.activities.length; index++) {
                 var entry = document.createElement("div");
-                var title = docuemnt.createElement("h2");
+                var title = document.createElement("h2");
                 entry.appendChild(title);
-                h2.textContent = "Activity: " + index;
+                title.textContent = "Activity: " + index;
                 entry.textContent = "Latitude: " + this.response.activities[index].latitude + "\n";
                 entry.textContent += "Longitutde: " + this.response.activities[index].longitude + "\n";
                 entry.textContent += "UV Exposure: " + this.response.activities[index].uv + "\n";
                 entry.textContent += "Speed: " + this.response.activities[index].speed + "\n";
-                
-                // add nodes to #activityReport div
-                document.getElementById("activityReport").appendChild(entry);
+		entry.classList.add("card-content");                
+		entry.classList.add("white-text"); 
+ 
+		//debug
+		console.log("Latitude: " + this.response.activities[index].latitude);
+		console.log("Entry: " + entry.textContent);
+
+                // add nodes to #activityText div
+                document.getElementById("recentActivities").appendChild(entry);
            }
 	   }
          // display activityReport in recentactivities.html

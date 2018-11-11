@@ -91,31 +91,26 @@ router.post("/add", function(req, res) {
                
         // Check to see if an activity was already recoreded within 10 meters (or thereabouts, this needs to be verified)
         /*var findActivityQuery = Activity.findOne({
-             loc: {
-                 $near : {
-                     $geometry: { type: "Point",  coordinates: [req.body.longitude, req.body.latitude] },
-                     $maxDistance: 10.0
-                 }
-             }
+             'submitTime': { $eq: new Date(myDate.toISOString())}
          });*/
 
          // Execute the query     
-         findActivityQuery.exec(function (err, activity) {
-            if (err) {
+         //findActivityQuery.exec(function (err, activity) {
+           /* if (err) {
                console.log(err);
                responseJson.message = "Error accessing db.";
                return res.status(201).send(JSON.stringify(responseJson));
-             }
+             }*/
              
              // Activity was found, update last reported time
-             if (activity) {
-                 pothole.lastReported = Date.now();
+             /*if (activity) {
+                 activity.lastReported = Date.now();
                  responseJson.message = "Activity date updated.";
-             }
+             }*/
              //////////////////////////////////////////////////////////////////////
              // New activity
              /////////////////////////////
-             else {
+             //else {
                  // Create a new activity and save the activity to the database
                  var activity = new Activity({
                      loc: [req.body.longitude, req.body.latitude],
@@ -124,7 +119,7 @@ router.post("/add", function(req, res) {
                      submitTime: Date.now(),
                  });
                  responseJson.message = "New activity recorded.";
-             }                
+            // }                
 
              // Save the activity data. 
              activity.save(function(err, newActivity) {
@@ -136,7 +131,7 @@ router.post("/add", function(req, res) {
 
                  responseJson.success = true;
                  return res.status(201).send(JSON.stringify(responseJson));
-            });
+           // });
          });  
     });
 });
