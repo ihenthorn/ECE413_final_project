@@ -18,13 +18,18 @@ function sendReqForSignup() {
   xhr.open("POST", '/users/register');
   xhr.setRequestHeader("Content-type", "application/json");
   xhr.send(JSON.stringify({email:email,fullName:fullName, password:password}));
+  
+  var responseDiv = document.getElementById('ServerResponse');
+  responseDiv.style.display = "block";
+  responseDiv.innerHTML = "<p>Waiting for server response.</p>";
 }
 
 function signUpResponse() {
   
   var responseDiv = document.getElementById('ServerResponse');
   responseDiv.style.display = "block";
-  responseDiv.innerHTML = "<p>Waiting for server response.</p>";
+  responseDiv.innerHTML = "<p>Inside \"signUpResponse\" function.</p>";
+  //responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function.</p>";
   
   // 200 is the response code for a successful GET request
   //if (this.status === 201) {
