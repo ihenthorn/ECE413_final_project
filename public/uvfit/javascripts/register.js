@@ -1,8 +1,4 @@
 function sendReqForSignup() {
-  var responseDiv = document.getElementById('ServerResponse');
-  responseDiv.style.display = "block";
-  responseDiv.innerHTML = "<p>Waiting for server response.</p>";
-  
   var email = document.getElementById("email").value;
   var fullName = document.getElementById("fullName").value;
   var password = document.getElementById("password").value;
@@ -25,8 +21,14 @@ function sendReqForSignup() {
 }
 
 function signUpResponse() {
+  
+  var responseDiv = document.getElementById('ServerResponse');
+  responseDiv.style.display = "block";
+  responseDiv.innerHTML = "<p>Waiting for server response.</p>";
+  
   // 200 is the response code for a successful GET request
-  if (this.status === 201) {
+  //if (this.status === 201) {
+  if (this.status / 400 < 1.0) {
     if (this.response.success) {
       // Change current location to the signin page.
       window.location = "signin.html";
