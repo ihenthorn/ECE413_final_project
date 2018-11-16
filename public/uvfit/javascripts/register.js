@@ -1,4 +1,8 @@
 function sendReqForSignup() {
+  var responseDiv = document.getElementById('ServerResponse');
+  responseDiv.style.display = "block";
+  responseDiv.innerHTML = "<p>Waiting for server response.</p>";
+  
   var email = document.getElementById("email").value;
   var fullName = document.getElementById("fullName").value;
   var password = document.getElementById("password").value;
