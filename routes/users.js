@@ -52,12 +52,15 @@ router.post('/register', function(req, res, next) {
               fullName: req.body.fullName,
               passwordHash: hash // hashed password
            }); 
-	   res.status(201).json( { success: true, message: "Created new instance of User model" } );
+	   //res.status(201).json( { success: true, message: "Created new instance of User model" } );
 	}
 	catch (err) {
 	   res.status(400).json( { success: false, message: "Couldn't create new user" } );
 	   return;
         }
+	
+	newUser.save();
+	res.status(201).json( {success: true, message: "New user successfully saved"});
         /*
         newUser.save( function(err, user) {
            if (err) {
