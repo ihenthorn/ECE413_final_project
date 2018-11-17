@@ -43,8 +43,8 @@ router.post('/register', function(req, res, next) {
     
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
-	res.status(201).json( { success: true, message: "In bcrypt.hash" } );
-	/*
+	//res.status(201).json( { success: true, message: "In bcrypt.hash" } );
+	
         // Create an entry for the user
 	try {
         var newUser = new User( {                //  Should we put a try-catch around this whole block???
@@ -52,11 +52,13 @@ router.post('/register', function(req, res, next) {
            fullName: req.body.fullName,
            passwordHash: hash // hashed password
         }); 
+	res.status(201).json( { success: true, message: "Created new instance of User model" } );
 	}
 	catch (err) {
 	   res.status(201).json( { success: true, message: "Couldn't create new user" } );
+	   return;
         }
-        
+        /*
         newUser.save( function(err, user) {
            if (err) {
               // Error can occur if a duplicate email is sent
