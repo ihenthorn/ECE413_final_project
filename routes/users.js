@@ -37,7 +37,8 @@ router.post('/signin', function(req, res, next) {
 /* Register a new user */
 router.post('/register', function(req, res, next) {
 	
-    	res.status(201).json( {success: true, message: user.fullName + " has been created."});
+    	//res.status(201).json( {success: true, message: user.fullName + " has been created."});
+	res.status(201).json( { success: true, message: "user has been created." } );
 
     /*
     // FIXME: Add input validation
