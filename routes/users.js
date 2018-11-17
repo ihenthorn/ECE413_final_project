@@ -37,10 +37,10 @@ router.post('/signin', function(req, res, next) {
 /* Register a new user */
 router.post('/register', function(req, res, next) {
 	
-    	//res.status(201).json( {success: true, message: user.fullName + " has been created."});
-	res.status(201).json( { success: true, message: "user has been created." } );
+    	
+	//res.status(201).json( { success: true, message: "user has been created." } );
 
-    /*
+    
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
         // Create an entry for the user
@@ -60,7 +60,7 @@ router.post('/register', function(req, res, next) {
            }
         });
     });
-    */
+    
 });
 
 router.get("/account" , function(req, res) {
