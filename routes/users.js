@@ -52,23 +52,25 @@ router.post('/register', function(req, res, next) {
            fullName: req.body.fullName,
            passwordHash: hash // hashed password
         }); 
-	res.status(201).json( { success: true, message: "Created new instance of User model" } );
+	//res.status(201).json( { success: true, message: "Created new instance of User model" } );
 	}
 	catch (err) {
-	   res.status(201).json( { success: true, message: "Couldn't create new user" } );
+	   res.status(400).json( { success: false, message: "Couldn't create new user" } );
 	   return;
         }
-        /*
+        
         newUser.save( function(err, user) {
            if (err) {
               // Error can occur if a duplicate email is sent
-              res.status(400).json( {success: false, message: err.errmsg});
+              //res.status(400).json( {success: false, message: err.errmsg});
+	      res.status(400).json( {success: false, message: "Couldn't save new instance of User model"});
            }
            else {
-               res.status(201).json( {success: true, message: user.fullName + " has been created."});
+               //res.status(201).json( {success: true, message: user.fullName + " has been created."});
+	       res.status(201).json( {success: true, message: "New user successfully saved"});
            }
         });
-	*/
+	
     });
     
 });
