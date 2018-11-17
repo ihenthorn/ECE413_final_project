@@ -28,14 +28,9 @@ function signUpResponse() {
   
   var responseDiv = document.getElementById('ServerResponse');
   responseDiv.style.display = "block";
-  //responseDiv.innerHTML = "<p>Inside \"signUpResponse\" function.</p>";
   responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function.</p>";
   responseDiv.innerHTML += "\n<p>" + this.status + "</p>";
-  //responseDiv.innerHTML += "\n<p>" + this.response + "</p>";
-  //responseDiv.innerHTML += "\n<p>" + this.response.json + "</p>";
   responseDiv.innerHTML += "\n<p>" + this.response.message + "</p>";
-  //responseDiv.innerHTML += "\n<p>" + this.json + "</p>";
-  //responseDiv.innerHTML += "\n<p>" + this.response.error + "</p>";
   
   return;
   
