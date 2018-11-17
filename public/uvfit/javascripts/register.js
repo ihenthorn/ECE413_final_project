@@ -32,7 +32,7 @@ function signUpResponse() {
   responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function.</p>";
   responseDiv.innerHTML += "\n<p>" + this.status + "</p>";
   responseDiv.innerHTML += "\n<p>" + this.response + "</p>";
-  responseDiv.innerHTML += "\n<p>" + this.response.error + "</p>";
+  //responseDiv.innerHTML += "\n<p>" + this.response.error + "</p>";
   
   
   // 200 is the response code for a successful GET request
@@ -56,7 +56,8 @@ function signUpResponse() {
     responseDiv.innerHTML += "\n<p>In fail else</p>";
     // Use a span with dark red text for errors
     responseHTML = "<span class='red-text text-darken-2'>";
-    responseHTML += "Error: " + this.response.error;
+    //responseHTML += "Error: " + this.response.error;
+    responseHTML += "Error: " + this.response;
     responseHTML += "</span>"
   }
 
