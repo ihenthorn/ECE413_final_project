@@ -34,6 +34,7 @@ function signUpResponse() {
   responseDiv.innerHTML += "\n<p>" + this.response + "</p>";
   //responseDiv.innerHTML += "\n<p>" + this.response.error + "</p>";
   
+  return;
   
   // 200 is the response code for a successful GET request
   //if (this.status === 201) {
