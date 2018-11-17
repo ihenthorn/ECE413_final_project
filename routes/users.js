@@ -38,27 +38,27 @@ router.post('/signin', function(req, res, next) {
 router.post('/register', function(req, res, next) {
 	
     	
-    //res.status(201).json( { success: true, message: "In /user/register router" } );
+    res.status(201).json( { success: true, message: "In /user/register router" } );
 
     
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
-	//res.status(201).json( { success: true, message: "In bcrypt.hash" } );
+	res.status(201).json( { success: true, message: "In bcrypt.hash" } );
 	
         // Create an entry for the user
 	try {
-        var newUser = new User( {                //  Should we put a try-catch around this whole block???
-           email: req.body.email,
-           fullName: req.body.fullName,
-           passwordHash: hash // hashed password
-        }); 
-	//res.status(201).json( { success: true, message: "Created new instance of User model" } );
+           var newUser = new User( {                //  Should we put a try-catch around this whole block???
+              email: req.body.email,
+              fullName: req.body.fullName,
+              passwordHash: hash // hashed password
+           }); 
+	   res.status(201).json( { success: true, message: "Created new instance of User model" } );
 	}
 	catch (err) {
 	   res.status(400).json( { success: false, message: "Couldn't create new user" } );
 	   return;
         }
-        
+        /*
         newUser.save( function(err, user) {
            if (err) {
               // Error can occur if a duplicate email is sent
@@ -70,7 +70,7 @@ router.post('/register', function(req, res, next) {
 	       res.status(201).json( {success: true, message: "New user successfully saved"});
            }
         });
-	
+	*/
     });
     
 });
