@@ -44,11 +44,16 @@ router.post('/register', function(req, res, next) {
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
         // Create an entry for the user
+	try {
         var newUser = new User( {                //  Should we put a try-catch around this whole block???
            email: req.body.email,
            fullName: req.body.fullName,
            passwordHash: hash // hashed password
         }); 
+	}
+	catch {
+	   res.status(201).json( { success: true, message: "Couldn't create new user" } );
+        }
         
         newUser.save( function(err, user) {
            if (err) {
