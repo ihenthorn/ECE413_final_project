@@ -7,7 +7,7 @@ var bcrypt = require("bcrypt-nodejs");
 var jwt = require("jwt-simple");
 
 /* Authenticate user */
-var secret = fs.readFileSync(__dirname + '/../jwtkey').toString();
+//var secret = fs.readFileSync(__dirname + '/../jwtkey').toString(); // FIXME!!!
 
 router.post('/signin', function(req, res, next) {
    User.findOne({email: req.body.email}, function(err, user) {
@@ -38,8 +38,8 @@ router.post('/signin', function(req, res, next) {
 router.post('/register', function(req, res, next) {
 	
     	res.status(201).json( {success: true, message: user.fullName + " has been created."});
-	return;
-	
+
+    /*
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
         // Create an entry for the user
@@ -58,7 +58,8 @@ router.post('/register', function(req, res, next) {
                res.status(201).json( {success: true, message: user.fullName + " has been created."});
            }
         });
-    });    
+    });
+    */
 });
 
 router.get("/account" , function(req, res) {
