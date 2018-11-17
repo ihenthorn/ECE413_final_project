@@ -38,13 +38,13 @@ router.post('/signin', function(req, res, next) {
 router.post('/register', function(req, res, next) {
 	
     	
-    res.status(201).json( { success: true, message: "In /user/register router" } );
+    //res.status(201).json( { success: true, message: "In /user/register router" } );
 
-    /*
+    
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
         // Create an entry for the user
-        var newUser = new User( {
+        var newUser = new User( {                //  Should we put a try-catch around this whole block???
            email: req.body.email,
            fullName: req.body.fullName,
            passwordHash: hash // hashed password
@@ -60,7 +60,7 @@ router.post('/register', function(req, res, next) {
            }
         });
     });
-    */
+    
 });
 
 router.get("/account" , function(req, res) {
