@@ -43,6 +43,8 @@ router.post('/register', function(req, res, next) {
     
     // FIXME: Add input validation
     bcrypt.hash(req.body.password, null, null, function(err, hash) {
+	res.status(201).json( { success: true, message: "In bcrypt.hash" } );
+	/*
         // Create an entry for the user
 	try {
         var newUser = new User( {                //  Should we put a try-catch around this whole block???
@@ -64,6 +66,7 @@ router.post('/register', function(req, res, next) {
                res.status(201).json( {success: true, message: user.fullName + " has been created."});
            }
         });
+	*/
     });
     
 });
