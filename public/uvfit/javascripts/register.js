@@ -29,7 +29,8 @@ function signUpResponse() {
   var responseDiv = document.getElementById('ServerResponse');
   responseDiv.style.display = "block";
   //responseDiv.innerHTML = "<p>Inside \"signUpResponse\" function.</p>";
-  responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function.</p>";
+  responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function. this.status = " + this.status + "</p>";
+  
   
   // 200 is the response code for a successful GET request
   //if (this.status === 201) {
