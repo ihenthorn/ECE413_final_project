@@ -28,13 +28,15 @@ function signUpResponse() {
   
   var responseDiv = document.getElementById('ServerResponse');
   responseDiv.style.display = "block";
-  responseDiv.innerHTML = "<p>Inside \"signUpResponse\" function.</p>";
-  //responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function.</p>";
+  //responseDiv.innerHTML = "<p>Inside \"signUpResponse\" function.</p>";
+  responseDiv.innerHTML += "\n<p>Inside \"signUpResponse\" function.</p>";
   
   // 200 is the response code for a successful GET request
   //if (this.status === 201) {
-  if (this.status / 400 < 1.0) {
+  if (this.status < 400) {
+    responseDiv.innerHTML += "\n<p>this.status < 400</p>";
     if (this.response.success) {
+      responseDiv.innerHTML += "\n<p>this.response.success == true</p>";
       // Change current location to the signin page.
       window.location = "signin.html";
     } 
