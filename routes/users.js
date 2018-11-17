@@ -51,7 +51,7 @@ router.post('/register', function(req, res, next) {
            passwordHash: hash // hashed password
         }); 
 	}
-	catch {
+	catch (err) {
 	   res.status(201).json( { success: true, message: "Couldn't create new user" } );
         }
         
