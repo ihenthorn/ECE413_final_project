@@ -59,11 +59,11 @@ router.post('/register', function(req, res, next) {
 	   return;
         }
 	
-	//newUser.save();
-	//res.status(201).json( {success: true, message: "New user successfully saved"});
-        
+	newUser.save();
+	res.status(201).json( {success: true, message: "New user successfully saved"});
+        /*
         newUser.save( function(err, user) {
-	   /*
+	   
            if (err) {
               // Error can occur if a duplicate email is sent
               //res.status(400).json( {success: false, message: err.errmsg});
@@ -73,10 +73,10 @@ router.post('/register', function(req, res, next) {
                //res.status(201).json( {success: true, message: user.fullName + " has been created."});
 	       res.status(201).json( {success: true, message: "New user successfully saved"});
            }
-	   */
+	   
 	   res.status(201).json( {success: true, message: "New user possibly saved"});
         });
-	
+	*/
     });
     
 });
