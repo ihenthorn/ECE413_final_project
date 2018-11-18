@@ -11,8 +11,13 @@ function sendReqForSignin() {
 }
 
 function signinResponse() {
+  
+  //var inHere = false;
+  responseDiv.style.display = "block";
+  responseDiv.innerHTML = "In signInResponse() function";
+  
   // 200 is the response code for a successful GET request
-  if (this.status === 201) {
+  if (this.status < 400) {
      window.localStorage.setItem("authToken", this.response.token);
      window.location = "home.html";
   }
