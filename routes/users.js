@@ -10,6 +10,10 @@ var jwt = require("jwt-simple");
 var secret = fs.readFileSync(__dirname + '/../jwtkey').toString(); // FIXME!!!
 
 router.post('/signin', function(req, res, next) {
+	
+   res.status(201).json( { success: true, message: "In /user/register router" } );
+   
+   /*
    User.findOne({email: req.body.email}, function(err, user) {
       if (err) {
          res.status(401).json({success : false, error : "Error communicating with database."});
@@ -32,6 +36,7 @@ router.post('/signin', function(req, res, next) {
          });
       }
    });
+   */
 });
 
 /* Register a new user */
