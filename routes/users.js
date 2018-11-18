@@ -11,7 +11,7 @@ var secret = fs.readFileSync(__dirname + '/../jwtkey').toString(); // FIXME!!!
 
 router.post('/signin', function(req, res, next) {
 	
-   res.status(201).json( { success: true, message: "In /user/register router" } );
+   res.status(201).json( { success: true, message: "In /users/signin router" } );
    
    /*
    User.findOne({email: req.body.email}, function(err, user) {
@@ -43,7 +43,7 @@ router.post('/signin', function(req, res, next) {
 router.post('/register', function(req, res, next) {
 	
     	
-    //res.status(201).json( { success: true, message: "In /user/register router" } );
+    //res.status(201).json( { success: true, message: "In /users/register router" } );
 
     
     // FIXME: Add input validation
