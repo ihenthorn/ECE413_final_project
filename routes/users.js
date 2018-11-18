@@ -59,8 +59,10 @@ router.post('/register', function(req, res, next) {
 	   return;
         }
 	
-	newUser.save();
-	res.status(201).json( {success: true, message: "New user successfully saved"});
+	newUser.save( function(err, user) {
+	   res.status(201).json( {success: true, message: "New user successfully saved"});
+	});
+	
         /*
         newUser.save( function(err, user) {
 	   
