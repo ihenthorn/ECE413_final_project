@@ -20,7 +20,8 @@ function sendReqForSignin() {
 function signinResponse() {
   
   //var inHere = false;
-  //responseDiv.style.display = "block";
+  var responseDiv = document.getElementById("ServerResponse");
+  responseDiv.style.display = "block";
   responseDiv.innerHTML += "\n<p>In signInResponse() function</p>";
   responseDiv.innerHTML += "\n<p>" + this.status + "</p>";
   responseDiv.innerHTML += "\n<p>" + this.response.message + "</p>";
