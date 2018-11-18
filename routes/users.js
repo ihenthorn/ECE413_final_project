@@ -7,7 +7,7 @@ var bcrypt = require("bcrypt-nodejs");
 var jwt = require("jwt-simple");
 
 /* Authenticate user */
-//var secret = fs.readFileSync(__dirname + '/../jwtkey').toString(); // FIXME!!!
+var secret = fs.readFileSync(__dirname + '/../jwtkey').toString(); // FIXME!!!
 
 router.post('/signin', function(req, res, next) {
    User.findOne({email: req.body.email}, function(err, user) {
