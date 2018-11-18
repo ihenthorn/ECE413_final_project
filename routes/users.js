@@ -59,11 +59,14 @@ router.post('/register', function(req, res, next) {
 	   return;
         }
 	
+	var insideSaveFunction = false;
 	newUser.save( function(err, user) {
+	   insideSaveFunction = true;
 	   res.status(201).json( {success: true, message: "Inside newUser.save() function"});
 	});
-	//res.status(201).json( {success: true, message: "New user successfully saved"});
-	
+	if (insideSaveFunction == false) {
+	    res.status(201).json( {success: true, message: "New user successfully saved"});
+	}
         /*
         newUser.save( function(err, user) {
 	   
