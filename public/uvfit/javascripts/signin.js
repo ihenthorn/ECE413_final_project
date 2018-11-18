@@ -2,7 +2,7 @@ function sendReqForSignin() {
   
   var responseDiv = document.getElementById("ServerResponse");
   responseDiv.style.display = "block";
-  responseDiv.innerHTML = "<p>In sendReqForSignin() function</p>";
+  responseDiv.innerHTML = "<p>In sendReqForSignin() function beginning</p>";
   
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
@@ -13,12 +13,14 @@ function sendReqForSignin() {
   xhr.open("POST", '/users/signin');
   xhr.setRequestHeader("Content-type", "application/json");
   xhr.send(JSON.stringify({email:email, password:password}));
+  
+  responseDiv.innerHTML += "\n<p>In sendReqForSignin() function end</p>";
 }
 
 function signinResponse() {
   
   //var inHere = false;
-  responseDiv.style.display = "block";
+  //responseDiv.style.display = "block";
   responseDiv.innerHTML += "\n<p>In signInResponse() function</p>";
   return;
   
