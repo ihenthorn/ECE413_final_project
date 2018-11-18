@@ -1,4 +1,8 @@
 function sendReqForSignin() {
+  
+  responseDiv.style.display = "block";
+  responseDiv.innerHTML = "In sendReqForSignin() function";
+  
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   
@@ -14,7 +18,8 @@ function signinResponse() {
   
   //var inHere = false;
   responseDiv.style.display = "block";
-  responseDiv.innerHTML = "In signInResponse() function";
+  responseDiv.innerHTML += "\nIn signInResponse() function";
+  return;
   
   // 200 is the response code for a successful GET request
   if (this.status < 400) {
