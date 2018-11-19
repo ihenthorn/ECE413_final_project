@@ -42,8 +42,8 @@ router.post('/signin', function(req, res, next) {
       */
    });
    if (!inFunc) {
-      //res.status(201).json( { success: true, message: "AFTER /users/signin router User.findOne() function" } );
-      res.status(201).json( { success: true, message: req.body.email } );
+      res.status(201).json( { success: true, message: "AFTER /users/signin router User.findOne() function" } );
+      //res.status(201).json( { success: true, message: req.body.email } );
    }
 });
 
