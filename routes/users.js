@@ -13,6 +13,7 @@ router.post('/signin', function(req, res, next) {
 	
    //res.status(201).json( { success: true, message: "In /users/signin router" } );
    
+   
    var inFunc = false;
    User.findOne({email: req.body.email}, function(err, user) {
       inFunc = true;
@@ -41,7 +42,8 @@ router.post('/signin', function(req, res, next) {
       */
    });
    if (!inFunc) {
-      res.status(201).json( { success: true, message: "AFTER /users/signin router User.findOne() function" } );
+      //res.status(201).json( { success: true, message: "AFTER /users/signin router User.findOne() function" } );
+      res.status(201).json( { success: true, message: req.body.email } );
    }
 });
 
