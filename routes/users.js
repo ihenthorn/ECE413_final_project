@@ -18,6 +18,7 @@ router.post('/signin', function(req, res, next) {
    User.findOne({email: req.body.email}, function(err, user) {
       inFunc = true;
       res.status(201).json( { success: true, message: "In /users/signin router User.findOne() function" } );
+      console.log("In /users/signin router User.findOne() function");
       /*
       if (err) {
          res.status(401).json({success : false, error : "Error communicating with database."});
@@ -41,11 +42,12 @@ router.post('/signin', function(req, res, next) {
       }
       */
    });
+   /*
    if (!inFunc) {
       //res.status(201).json( { success: true, message: "AFTER /users/signin router User.findOne() function" } );
       res.status(201).json( { success: true, message: req.body.email + " " + req.body.password } );
    }
-   
+   */
 });
 
 /* Register a new user */
