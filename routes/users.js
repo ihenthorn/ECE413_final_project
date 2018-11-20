@@ -17,8 +17,8 @@ router.post('/signin', function(req, res, next) {
    var inFunc = false;
    User.findOne({email: req.body.email}, function(err, user) {
       //inFunc = true;
-      //res.status(201).json( { success: true, message: "In /users/signin router User.findOne() function" } );
       console.log("In /users/signin router User.findOne() function");
+      res.status(201).json( { success: true, message: "In /users/signin router User.findOne() function" } );
       /*
       if (err) {
          res.status(401).json({success : false, error : "Error communicating with database."});
